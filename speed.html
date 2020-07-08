@@ -1,0 +1,149 @@
+<html>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+<script>
+
+
+var counter = 800;
+var speed = 50;
+var finalSpeed = 50;
+
+var factor = 1.05;
+var step = 25;
+var flag = false;
+
+function resetSpeed(){
+    speed = 50
+}
+
+var stopFun = ()=>{
+
+    $(".show").html(Math.random());
+    if(counter >=1800){
+        return;
+    }
+
+    speed += 50;
+    counter += speed;
+
+    if(counter >= 1500){
+        return;
+    }
+
+    setTimeout(stopFun, counter);
+}
+
+
+var startFun = function() {
+
+    if(counter <= 100 || isNaN(counter)){
+        counter = 100;
+    }else{
+        speed += 50;
+        counter -= speed;
+    }
+    if(isNaN(counter)){
+        counter = 0;
+    }
+    $(".show").html(Math.random())
+    if(flag){
+        setTimeout(startFun, counter);
+    }
+}
+
+$(function(){
+
+    $("#stop").click(function(){
+        flag= false;
+        resetSpeed()
+        setTimeout(stopFun);
+    })
+
+    $("#start").click(function(){
+        flag = true;
+        setTimeout(startFun, counter);
+    })
+
+})
+
+
+</script>
+
+
+<script>
+
+var datas = [
+"C:/Users/kangu/Downloads/3DGallery/members/董宇昌.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/方鵬宇.png",
+"C:/Users/kangu/Downloads/3DGallery/members/楊琳.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/楊琦.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/李維.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/李佳.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/李詩琦.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/李秀麗.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/李拓.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/呂健閣.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/奚恩磊.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/姜锐锋.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/蔡.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/袁詩波.png",
+"C:/Users/kangu/Downloads/3DGallery/members/賈方.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/趙洋彬.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/赵玉苹.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/赵玥.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/陈子龙.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/yuko.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/スンべ.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/伊布勒.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/王栄.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/王賢.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/王紹坤.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/王超.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/王良辰.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/何歓.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/郭職順.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/関海劼.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/牛佳惠.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/金磊.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/呉亜玲.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/呉昊天.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/江琳.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/沙庭忠.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/史建明.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/施凯文.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/朱子尧.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/周磊.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/徐健.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/章慧慧.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/肖宇.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/常鑫.png",
+"C:/Users/kangu/Downloads/3DGallery/members/申炳灿.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/辛燦燦.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/蘇兆慧.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/張暁威.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/張世欣.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/張爽.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/張中原.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/張中冉.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/沈宇鵬.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/陳偉峰.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/陳徹.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/陳琦.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/程秀坤.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/鄭園.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/鄭城輝.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/唐嘉澤.jpg",
+"C:/Users/kangu/Downloads/3DGallery/members/島村さん.jpg",
+]
+
+
+
+</script>
+<body>
+    <button id="start" class="start">Start</button>
+    <button id="stop" class="end">Stop</button>
+    
+    <div class="show"></div>
+</body>
+</html>

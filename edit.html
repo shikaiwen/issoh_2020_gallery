@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+		<meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+        <title>3D Gallery with CSS3 and jQuery</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <meta name="description" content="3D Gallery with CSS3 and jQuery" />
+        <meta name="keywords" content="3d, gallery, jquery, css3, auto, slideshow, navigate, mouse scroll, perspective" />
+        <meta name="author" content="Codrops" />
+        <!-- <link rel="shortcut icon" href="../favicon.ico">  -->
+        <link rel="stylesheet" type="text/css" href="css/demo.css" />
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+		<script type="text/javascript" src="js/modernizr.custom.53451.js"></script>
+
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/jquery.gallery.js"></script>
+		<link
+		rel="stylesheet" href="css/animate.min.css" />
+	 
+		<script src="audio.js"></script>
+		
+		<!-- https://animate.style/ -->
+
+		<style>
+
+			html{
+				height: 100%;
+			}
+			body{
+				/* background: #333 url(images/bg2.jpg); */
+				/* background: #333 url(images/bg-ok.jpg); */
+				/* background-repeat: no-repeat; */
+				/* background-size: 100% 100%; */
+				height: 100%;
+				
+			}
+
+			body{
+				/* background: #333 url(images/aaa.jpg) repeat top left; */
+				background: #333 url(images/bg-7.jpg) repeat top left;
+				background-repeat: no-repeat;
+				background-size: 100% 100%; 
+				/* background-color: #4656b2;
+			}
+			h1{
+				color: silver !important;
+			}
+			.container{
+				/* background-color: #4656b2; */
+				height: 100%;
+			}
+
+			.dg-wrapper {
+				width: 600px;
+				height: 406px;
+				
+			}
+			.dg-wrapper a img{
+				width:480px;
+				height:300px;
+			}
+			.dg-center {
+				width:500px !important;
+				height: 600px !important;
+			}
+			.dg-center img{
+				width:500px !important;
+				height: 600px !important;
+			}
+			.dg-wrapper a img{
+				padding: 1px 0px 0px 1px;
+			}
+			.dg-wrapper a{
+				/* background image 削除 */
+				background: none;
+			}
+
+			.container > header h1 {
+				font-size: 80px;
+				color: white;
+			}
+
+			.tenwrapper{
+				display: flex;
+				width:58%;
+				margin:0px auto;
+				justify-content: space-around;
+    			flex-wrap: wrap;
+			}
+
+			.mm{
+				margin-top: 25px;
+				width:180px;
+				height: 200px;
+				display: inline-block;
+				border: 8px solid wheat;
+			}
+			.mm img{
+				width: 100%;
+    			height: 100%;
+			}
+
+			.btn-now{
+				background-image: url(images/btn-switch.png);
+				background-size: 100%;
+				width: 100px;
+				height: 100px;
+				border-radius: 50px;
+			}
+
+			.btn-selected{
+				background-image: url(images/bg-select.png);
+				background-size: 100% 100%;
+				display: inline-block;
+				width: 75px;
+				height: 18px;
+				text-align: center;
+				font-weight: bold;
+				padding: 20px;
+			}
+			.gray{
+				filter: grayscale(100%);
+			}
+
+			.autoplay{
+				filter: invert(17%) sepia(91%) saturate(7085%) hue-rotate(128deg) brightness(100%) contrast(106%);
+			}
+
+			.btn-stop{
+				background-image: url(images/btn-switch.png);
+				background-size: 100%;
+				display: inline-block;
+				width: 50px;
+    			height: 50px;
+				text-align: center;
+				font-size: 20px;
+				font-weight: bold;
+				padding: 20px;
+				color: black;
+			}
+
+			.btn-reset{
+				background-image: url(images/edit_reset.png);
+				background-size: 100%;
+				display: inline-block;
+				width: 50px;
+    			height: 50px;
+				text-align: center;
+				font-size: 20px;
+				font-weight: bold;
+				padding: 20px;
+			}
+
+			.toolbar{
+				position: fixed;
+				bottom: 51px;
+				right: 0px;;
+			}
+
+			.person{
+				position: absolute;
+				width:180px;
+				display: none;
+			}
+			.person img{
+				width:100%;
+			}
+
+			.person-holder{
+				position: absolute;
+				width: 100%;
+				top: 400px;
+			}
+			.p1{
+				left:193px;
+			}
+			.p2{
+				right:193px;
+			}
+			:root {
+				--animate-duration: 1000ms;
+				--animate-delay: 0.9s;
+			}
+
+			.audiobar{
+				position: fixed;
+				bottom: 10px;
+				left: 1px;
+			}
+		</style>
+    </head>
+    <body>
+        <div class="container">
+
+			<header>
+				<!-- <h1>海隆一創2020年抽選会</h1> -->
+				<h1>海隆一創2020新年会</h1>
+				<img src="images/title.gif">
+			</header>
+			<div class="person-holder">
+				<div class="person p1 animate__animated">
+					<img src="images/boss.gif"/>
+				</div>
+
+				<div class="person p2 animate__animated">
+					<img src="images/boss.gif"/>
+				</div>
+
+
+			</div>
+
+
+
+			<section id="dg-container" class="dg-container" >
+				<div class="dg-wrapper">
+					<!-- <a href="#"><img src="images/1.jpg" alt="image01"><div>http://www.colazionedamichy.it/</div></a>
+					<a href="#"><img src="images/7.jpg" alt="image07"><div>http://www.foundrycollective.com/</div></a> -->
+				</div>
+				<nav>	
+					<span style="display: none;" class="dg-prev">&lt;</span>
+					<span style="display: none;" class="dg-next">&gt;</span>
+				</nav>
+			</section>
+
+			<section class="tenSection" style="display: none;">
+				<div class="tenwrapper">
+					
+					
+					<a href="" class="mm">
+						<img src="members/楊琦.jpg" fname="楊琦.jpg" alt="">
+					</a>
+					<a href="" class="mm"></a>
+					<a href="" class="mm"></a>
+					<a href="" class="mm"></a>
+					<a href="" class="mm"></a>
+					<a href="" class="mm"></a>
+					<a href="" class="mm"></a>
+					<a href="" class="mm"></a>
+					<a href="" class="mm"></a>
+					<a href="" class="mm"></a>
+				</div>
+			</section>
+		</div>
+		
+		<div>
+
+			<div class="toolbar">
+				<!-- <a id="current" href="#" class="btn-stop">STOP</a> -->
+				<a id="current" href="#" pattern="1" class="pattern btn-selected">抽奖1</a>
+				<a id="current" href="#" pattern="2" class="pattern btn-selected">抽奖2</a>
+				<a id="current" href="#" class="btn-selected autoplay">autoPlay</a>
+				<a id="current" href="#" class="btn-reset">&nbsp;</a>
+			</div>
+
+			<!-- <button id="start">Start</button> -->
+
+			<div style="display: none;">
+				<button id="start" class="start btn-now">Start</button>
+				<button id="stop" class="end">Stop</button>
+				<button id="autoplay">autoplay</button>
+				<button id="getTen">get ten member</button>
+				<button class="audio" aname="select">playSelectMusic</button>
+				<button class="audio" aname="award">playSelectMusic</button>
+			</div>
+
+
+			<div class="audiobar">
+				<button class="audio-btn">a</button>
+				<!-- <button class="audio-btn">b</button> -->
+				<button class="audio-btn">c</button>
+				<button class="audio-btn">d</button>
+				<button class="audio-btn">e</button>
+
+			</div>
+
+		</div>
+
+		<script type="text/javascript">
+		var step = 10;
+		var datas = [
+			"logo.jpg",
+"董宇昌.jpg",
+"方鵬宇.png",
+"楊琳.jpg",
+"楊琦.jpg",
+"李維.jpg",
+"李佳.jpg",
+"李詩琦.jpg",
+"李秀麗.jpg",
+"李拓.jpg",
+"呂健閣.jpg",
+"奚恩磊.jpg",
+"姜锐锋.jpg",
+"蔡.jpg",
+"袁詩波.png",
+"賈方.jpg",
+"趙洋彬.jpg",
+"赵玉苹.jpg",
+"赵玥.jpg",
+"陈子龙.jpg",
+"yuko.jpg",
+"スンべ.jpg",
+"伊布勒.jpg",
+"王栄.jpg",
+"王賢.jpg",
+"王紹坤.jpg",
+"王超.jpg",
+"王良辰.jpg",
+"何歓.jpg",
+"郭職順.jpg",
+"関海劼.jpg",
+"牛佳惠.jpg",
+"金磊.jpg",
+"呉亜玲.jpg",
+"呉昊天.jpg",
+"江琳.jpg",
+"沙庭忠.jpg",
+"史建明.jpg",
+"施凯文.jpg",
+"朱子尧.jpg",
+"周磊.jpg",
+"徐健.jpg",
+"章慧慧.jpg",
+"肖宇.jpg",
+"常鑫.png",
+"申炳灿.jpg",
+"辛燦燦.jpg",
+"蘇兆慧.jpg",
+"張暁威.jpg",
+"張世欣.jpg",
+"張爽.jpg",
+"張中原.jpg",
+"張中冉.jpg",
+"沈宇鵬.jpg",
+"陳偉峰.jpg",
+"陳徹.jpg",
+"陳琦.jpg",
+"程秀坤.jpg",
+"鄭園.jpg",
+"鄭城輝.jpg",
+"唐嘉澤.jpg",
+"島村さん.jpg",
+]
+
+function changePattern(p){
+	$(".pattern").addClass("gray");
+	$(`[pattern=${p}]`).removeClass("gray");
+}
+
+function setFirstPattern(){
+	changePattern("1")
+}
+
+function bindPatternEvt(){
+	$(".pattern").click(function(){
+		var attr = $(this).attr("pattern")
+		changePattern(attr)
+	})
+}
+
+
+var OnProcess = {
+
+	clear:function(){
+		localStorage.removeItem("OnProcess.awarded");
+	},
+	getAwarded:function(){
+		var dataFromStore = localStorage.getItem("OnProcess.awarded");
+		if(!dataFromStore){
+			dataFromStore = [];
+		}else{
+			dataFromStore = JSON.parse(dataFromStore);
+		}
+		return dataFromStore;
+	},
+	pushAward:function(img){
+		var arr = this.getAwarded()
+		arr.push(img);
+		var data = JSON.stringify(arr)
+		var dataFromStore = localStorage.setItem("OnProcess.awarded",data);
+	},
+
+	setLayout:function(action){
+
+		var toExclude = this.getAwarded();
+		if(action == "1"){
+			// reset all
+			toExclude = [];
+		}
+
+		$('#dg-container').data('gallery',null);
+		
+		var arrs = JSON.parse(JSON.stringify(datas))
+		var nextArr = arrs.filter(e=>!toExclude.includes(e));
+
+		var all = nextArr.reduce((a,img)=>{
+		var template = `
+			<a href="#"><img src="members/${img}" fname="${img}" alt=""><div></div></a>`;
+			a += template;
+			return a;
+		},"");
+		$(".dg-wrapper").html(all);
+		$('#dg-container').gallery();
+
+
+		$(".tenSection").hide();
+		$(".dg-container").show();
+
+		
+	}
+}
+
+
+
+    // 整数includesive random 
+function randEx(min, max) {
+//  https://www.cnblogs.com/ayqy/p/4511565.html
+    var num;
+    var maxEx = max + 2; // 扩大范围到[min, max + 2]，引入两个多余值替换min/max
+ 
+    do{
+ 
+        num = Math.round(Math.random() * (maxEx - min) + min);
+        num--;
+    } while (num < min || num > max);   // 范围不对，继续循环
+ 
+    return num;
+}
+
+
+
+var OnTenProcess = {
+
+	clear:function(){
+		localStorage.removeItem("OnTenProcess.awarded");
+	},
+	getAwarded:function(){
+		var dataFromStore = localStorage.getItem("OnTenProcess.awarded");
+		if(!dataFromStore){
+			dataFromStore = [];
+		}else{
+			dataFromStore = JSON.parse(dataFromStore);
+		}
+		return dataFromStore;
+	},
+	pushAward:function(currAwards){
+		var arr = this.getAwarded()
+		arr = arr.concat(currAwards)
+		var data = JSON.stringify(arr);
+		var dataFromStore = localStorage.setItem("OnTenProcess.awarded",data);
+	},
+	getLeftMember:function(){
+		var rawData = window.datas;
+		var awardedMembers = this.getAwarded()
+		var left =  []
+
+		rawData.forEach(e=>{
+			if(awardedMembers.indexOf(e) == -1){
+				left.push(e);
+			}
+		})
+
+		return left
+
+	},
+	doSelect:function(img){
+
+// 		去掉已中奖
+		var rawData = this.getLeftMember()
+
+		var indexArr = [];
+
+		indexArr.push(rawData.indexOf(img))
+
+		while(true){
+
+			var i = randEx(0,rawData.length)
+
+			if(indexArr.indexOf(i) == -1){
+				indexArr.push(i);
+			}
+			if(indexArr.length == 10){
+				break;
+			}
+			console.log("get random...")
+		}
+
+		var html = indexArr.reduce((a,index)=>{
+
+			var img = rawData[index];
+			var item = `
+			<a href="" class="mm">
+				<img src="members/${img}" fname="${img}" alt="">
+			</a>
+			`;
+			a += item;
+			return a;
+		},"");
+
+		var nameArr = indexArr.map(i=>{
+			return rawData[i]
+		})
+
+		$(".tenwrapper").html(html);
+		$(".tenSection").show();
+		$(".dg-container").hide();
+
+		this.pushAward(nameArr)
+
+	},
+
+	setLayout:function(action){
+
+		$('#dg-container').data('gallery',null);
+
+		var nextArr = this.getLeftMember()
+
+		var all = nextArr.reduce((a,img)=>{
+		var template = `
+			<a href="#"><img src="members/${img}" fname="${img}" alt=""><div></div></a>`;
+			a += template;
+			return a;
+		},"");
+		$(".dg-wrapper").html(all);
+		$('#dg-container').gallery();
+
+		$(".tenSection").hide();
+		$(".dg-container").show();
+
+	}
+}
+
+
+
+
+
+
+function resetGallery(){
+	$('#dg-container').data('gallery',null);
+	initImag();
+}
+
+
+function initImag(){
+
+	var all = datas.reduce((a,e)=>{
+	var parts = e.split("/");
+	var img = parts[parts.length-1]
+	var template = `
+		<a href="#"><img src="members/${img}" fname="${img}" alt=""><div></div></a>`;
+		a += template;
+		return a;
+	},"");
+	$(".dg-wrapper").html(all)
+}
+
+
+function getPattern(){
+	var patternElt = $(".pattern").filter((i,e)=>{
+					return !$(e).hasClass("gray")
+				})[0]
+	var pattern = $(patternElt).attr("pattern");
+	return pattern;
+}
+
+function doBossEffect(){
+
+	setTimeout(function(){
+
+		$(".person-holder").show()
+	$(".p1").addClass("animate__bounceInDown").show()
+	setTimeout(()=>{
+		$(".p2").addClass("animate__bounceInDown").show()
+	},1200)
+
+	},1200)
+
+
+}
+
+function hideBossEffect(){
+	$(".person").hide()
+}
+
+
+$(function() {
+
+	initImag();
+
+	bindPatternEvt()
+	setFirstPattern()
+
+
+	$(".audio-btn").click(function(){
+		var key = $(this).text()
+		playByKey(key);
+	});
+
+
+	$(".btn-reset").click(()=>{
+		OnProcess.clear()
+		OnTenProcess.clear()
+	})
+
+
+
+	$(document).on("keydown",function(e){
+		if(e.keyCode == 32){
+
+
+
+			if(window.flag == true){
+				// stop it 
+				if(getPattern() == "1"){
+					$("#stop").click()
+				}else{
+					$("#getTen").click()
+				}
+
+			}else{
+				// start it
+
+				$("#start").click()
+
+			}
+		}
+
+		console.log("keydown ...")
+	})
+
+	
+	$("#autoplay,.autoplay").click(function(){
+		
+		var autoPlay = $('#dg-container').data().gallery.options.autoplay
+
+		if(autoPlay == true){
+			// stop it 
+			$('#dg-container').data().gallery.options.autoplay = false;
+			window.transTime = "10ms";
+		}else{
+
+			window.transTime = "100ms";
+
+			resetGallery();
+		// initImag();
+			setTimeout(function(){
+				$('#dg-container').gallery({autoplay:true,interval:2000});
+			},1000)
+			// $('#dg-container').gallery();
+
+		}
+
+
+	})
+
+
+	$('#dg-container').gallery();
+
+	$(".audio").click(function(){
+		var aname = $(this).attr("aname")
+		if(aname== "select"){
+			playSelect()
+		}
+
+		if(aname== "award"){
+			window.currentAward = AudioHolder.playAwardAudio()
+		}
+
+	});
+
+
+});
+
+
+function playSelect(){
+	window.currentSelect = AudioHolder.playSelectAudio();
+}
+
+function stopSelect(){
+	AudioHolder.playAwardAudio();
+	if(window.currentSelect){
+		window.currentSelect.stop();
+	}
+}
+
+
+</script>
+
+<script>
+
+
+	var counter = 800;
+	var speed = 50;
+	var finalSpeed = 50;
+	
+	var factor = 1.05;
+	var step = 25;
+	var flag = false;
+	
+	function resetSpeed(){
+		speed = 50
+	}
+
+	function doChange(){
+		$(".dg-next").click()
+	}
+	
+
+	var stopFun = ()=>{
+
+		speed += 30;
+		counter += speed;
+	
+		if(counter >= 1000){
+
+			doChange()
+			var lastSpeed = counter;
+			setTimeout(doChange,lastSpeed + 10)
+			// setTimeout(doChange,lastSpeed * 2 + 10)
+			// setTimeout(doChange,lastSpeed *3 + 30)
+			return;
+		}
+
+		doChange()
+		// $(".dg-next").click()
+		setTimeout(stopFun, counter);
+	}
+	
+	
+	var startFun = function() {
+	
+		if(counter <= 100 || isNaN(counter)){
+			counter = 100;
+		}else{
+			speed += 30;
+			counter -= speed;
+		}
+		if(isNaN(counter)){
+			counter = 0;
+		}
+		// $(".show").html(Math.random())
+		
+		doChange()
+
+		if(flag){
+			setTimeout(startFun, counter);
+		}
+	}
+	
+	$(function(){
+
+		$("#getTen").click(()=>{
+
+			flag= false;
+			stopSelect();
+			setTimeout(()=>{
+				var img = $(".dg-center img").attr("fname")
+				console.log(img);
+				// OnTenProcess.pushAward(img);
+				OnTenProcess.doSelect(img);
+			},1000)
+		})
+	
+		$("#stop").click(function(){
+
+			doBossEffect()
+			flag= false;
+
+			doChange()
+
+			stopSelect();
+
+
+
+			setTimeout(()=>{
+				var img = $(".dg-center img").attr("fname")
+				console.log(img);
+				OnProcess.pushAward(img);
+
+			},2000)
+
+		})
+	
+		$("#start").click(function(){
+
+			hideBossEffect()
+			if(getPattern() == "1"){
+				OnProcess.setLayout();
+
+			}else{
+				OnTenProcess.setLayout()
+			}
+
+			flag = true;
+			playSelect()
+			setTimeout(startFun, counter);
+		})
+	
+	})
+	
+	
+	</script>
+    </body>
+</html>
