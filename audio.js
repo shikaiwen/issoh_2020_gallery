@@ -34,8 +34,8 @@
 
 
 var audioMap ={
-    award:{file:"5d0c79ff76f0a82047.mp3",buffer:""},
-    // award:{file:"award-short.mp3",buffer:""},
+    // award:{file:"5d0c79ff76f0a82047.mp3",buffer:""},
+    award:{file:"award-short.mp3",buffer:""},
     select:{file:"10864.mp3",buffer:""},
 
 

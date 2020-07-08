@@ -8,7 +8,7 @@
         <meta name="description" content="3D Gallery with CSS3 and jQuery" />
         <meta name="keywords" content="3d, gallery, jquery, css3, auto, slideshow, navigate, mouse scroll, perspective" />
         <meta name="author" content="Codrops" />
-        <!-- <link rel="shortcut icon" href="../favicon.ico">  -->
+        
         <link rel="stylesheet" type="text/css" href="css/demo.css" />
         <link rel="stylesheet" type="text/css" href="css/style.css" />
 		<script type="text/javascript" src="js/modernizr.custom.53451.js"></script>
@@ -195,7 +195,7 @@
 
 			<header>
 				<!-- <h1>海隆一創2020年抽選会</h1> -->
-				<h1>海隆一創2020新年会</h1>
+				<!-- <h1>海隆一創2020新年会</h1> -->
 				<img src="images/title.gif">
 			</header>
 			<div class="person-holder">
@@ -279,42 +279,21 @@
 		<script type="text/javascript">
 		var step = 10;
 		var datas = [
-			"logo.jpg",
-"董宇昌.jpg",
-"方鵬宇.png",
-"楊琳.jpg",
-"楊琦.jpg",
-"李維.jpg",
-"李佳.jpg",
-"李詩琦.jpg",
-"李秀麗.jpg",
-"李拓.jpg",
-"呂健閣.jpg",
-"奚恩磊.jpg",
-"姜锐锋.jpg",
-"蔡.jpg",
-"袁詩波.png",
-"賈方.jpg",
-"趙洋彬.jpg",
-"赵玉苹.jpg",
-"赵玥.jpg",
+"logo.jpg",
 "陈子龙.jpg",
 "yuko.jpg",
 "スンべ.jpg",
 "伊布勒.jpg",
-"王栄.jpg",
 "王賢.jpg",
 "王紹坤.jpg",
-"王超.jpg",
 "王良辰.jpg",
 "何歓.jpg",
 "郭職順.jpg",
-"関海劼.jpg",
 "牛佳惠.jpg",
 "金磊.jpg",
-"呉亜玲.jpg",
 "呉昊天.jpg",
 "江琳.jpg",
+"高宗爽.jpg",
 "沙庭忠.jpg",
 "史建明.jpg",
 "施凯文.jpg",
@@ -326,8 +305,6 @@
 "常鑫.png",
 "申炳灿.jpg",
 "辛燦燦.jpg",
-"蘇兆慧.jpg",
-"張暁威.jpg",
 "張世欣.jpg",
 "張爽.jpg",
 "張中原.jpg",
@@ -341,6 +318,20 @@
 "鄭城輝.jpg",
 "唐嘉澤.jpg",
 "島村さん.jpg",
+"董宇昌.jpg",
+"方鵬宇.png",
+"楊琳.jpg",
+"楊琦.jpg",
+"李維.jpg",
+"李佳.jpg",
+"李秀麗.jpg",
+"李拓.jpg",
+"呂健閣.jpg",
+"奚恩磊.jpg",
+"姜锐锋.jpg",
+"蔡燕燕.jpg",
+"袁詩波.png",
+"赵玥.jpg",
 ]
 
 function changePattern(p){
@@ -353,10 +344,20 @@ function setFirstPattern(){
 }
 
 function bindPatternEvt(){
+
 	$(".pattern").click(function(){
 		var attr = $(this).attr("pattern")
-		changePattern(attr)
-	})
+		changePattern(attr);
+
+		if(attr == "1"){
+			OnProcess.setLayout()
+		}else{
+			OnTenProcess.setLayout()
+		}
+
+	});
+
+
 }
 
 
@@ -371,6 +372,10 @@ var OnProcess = {
 			dataFromStore = [];
 		}else{
 			dataFromStore = JSON.parse(dataFromStore);
+		}
+		
+		if(dataFromStore.indexOf(window.datas[0]) != -1){
+			dataFromStore.push(window.datas[0])
 		}
 		return dataFromStore;
 	},
@@ -402,7 +407,6 @@ var OnProcess = {
 		},"");
 		$(".dg-wrapper").html(all);
 		$('#dg-container').gallery();
-
 
 		$(".tenSection").hide();
 		$(".dg-container").show();
@@ -438,10 +442,18 @@ var OnTenProcess = {
 	getAwarded:function(){
 		var dataFromStore = localStorage.getItem("OnTenProcess.awarded");
 		if(!dataFromStore){
-			dataFromStore = [];
+			// get last awared 
+			dataFromStore = []
 		}else{
 			dataFromStore = JSON.parse(dataFromStore);
 		}
+
+		OnProcess.getAwarded().forEach(e=>{
+			if(dataFromStore.indexOf(e) == -1){
+				dataFromStore.push(e)
+			}
+		})
+
 		return dataFromStore;
 	},
 	pushAward:function(currAwards){
@@ -456,6 +468,8 @@ var OnTenProcess = {
 		var left =  []
 
 		rawData.forEach(e=>{
+			if(e == "logo.jpg")return;
+
 			if(awardedMembers.indexOf(e) == -1){
 				left.push(e);
 			}
@@ -467,23 +481,30 @@ var OnTenProcess = {
 	doSelect:function(img){
 
 // 		去掉已中奖
-		var rawData = this.getLeftMember()
+		var rawData = this.getLeftMember();
 
 		var indexArr = [];
 
-		indexArr.push(rawData.indexOf(img))
+		if(!isLogo(img)){
+			indexArr.push(rawData.indexOf(img))
+		}
 
-		while(true){
+		if(rawData.length < 10){
+			// alert("最後のメンバ")
+			indexArr = rawData;
+		}else{
 
-			var i = randEx(0,rawData.length)
-
-			if(indexArr.indexOf(i) == -1){
-				indexArr.push(i);
+			while(true){
+				var i = randEx(0,rawData.length -1)
+				if(indexArr.indexOf(i) == -1){
+					indexArr.push(i);
+				}
+				if(indexArr.length == 10){
+					break;
+				}
+				console.log("get random...")
 			}
-			if(indexArr.length == 10){
-				break;
-			}
-			console.log("get random...")
+
 		}
 
 		var html = indexArr.reduce((a,index)=>{
@@ -586,6 +607,7 @@ function hideBossEffect(){
 
 $(function() {
 
+
 	initImag();
 
 	bindPatternEvt()
@@ -601,6 +623,7 @@ $(function() {
 	$(".btn-reset").click(()=>{
 		OnProcess.clear()
 		OnTenProcess.clear()
+		alert("reset complete...")
 	})
 
 
@@ -633,6 +656,9 @@ $(function() {
 	$("#autoplay,.autoplay").click(function(){
 		
 		var autoPlay = $('#dg-container').data().gallery.options.autoplay
+
+		$(".tenSection").hide();
+		$(".dg-container").show();
 
 		if(autoPlay == true){
 			// stop it 
@@ -684,7 +710,9 @@ function stopSelect(){
 	}
 }
 
-
+function isLogo(img){
+	return window.datas[0] == img;
+}
 </script>
 
 <script>
@@ -755,7 +783,7 @@ function stopSelect(){
 			flag= false;
 			stopSelect();
 			setTimeout(()=>{
-				var img = $(".dg-center img").attr("fname")
+				var img = $(".dg-center img").attr("fname");
 				console.log(img);
 				// OnTenProcess.pushAward(img);
 				OnTenProcess.doSelect(img);
@@ -766,32 +794,44 @@ function stopSelect(){
 
 			doBossEffect()
 			flag= false;
-
-			doChange()
-
+			// doChange()
 			stopSelect();
 
+			var getSelected = function(){
 
+				setTimeout(()=>{
+					var img = $(".dg-center img").attr("fname");
+					console.log(img);
 
-			setTimeout(()=>{
-				var img = $(".dg-center img").attr("fname")
-				console.log(img);
-				OnProcess.pushAward(img);
+					if(isLogo(img)){
+						doChange()
+						getSelected()
+					}else{
+						OnProcess.pushAward(img);
 
-			},2000)
+					}
+
+				},1000);
+			}
+
+			getSelected()
+
 
 		})
 	
-		$("#start").click(function(){
 
+		$("#start").click(function(){
 			hideBossEffect()
 			if(getPattern() == "1"){
 				OnProcess.setLayout();
-
 			}else{
 				OnTenProcess.setLayout()
 			}
 
+			if($(".dg-wrapper a").size() <= 3){
+				alert("只剩下不到三人了，臣妾不能再运转了")
+				return;
+			}
 			flag = true;
 			playSelect()
 			setTimeout(startFun, counter);
