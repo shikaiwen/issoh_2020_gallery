@@ -118,6 +118,20 @@ function playSoundByName(item) {
       source.connect(context.destination);       // connect the source to the context's destination (the speakers)
       source.start(0);                           // play the source now
 
+      var keys = Object.keys(window.audioMap)
+
+      var values = keys.filter(k=>{
+          var eq = item == window.audioMap[k];
+          return eq;
+      }
+    )
+
+    if(values.length == 1){
+        if(["a","b","c","d","e"].includes(values[0])){
+            values[0].source.loop = true;
+        }
+    }
+
       item.source = source;
       source.onended = function(){
           item.source = null
