@@ -45,6 +45,8 @@ var audioMap ={
     c:{file:"获奖音乐.mp3",buffer:""},
     d:{file:"社长抽奖出场音乐.mp3",buffer:""},
     e:{file:"社长退场讲话音乐.mp3",buffer:""},
+
+
 }
 
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -52,6 +54,25 @@ window.AudioContext = window.AudioContext || window.webkitAudioContext;
 var context = new AudioContext();
 
 var AudioHolder = {}
+
+
+function doRandomAudio(){
+    var doReal = ()=>{
+      var num = randEx(0,4)
+      var startKey = "k";
+      var adKey = String.fromCharCode(startKey.charCodeAt(0) + num);
+      if(window.audioMap[adKey] && !window.audioMap[adKey].played){
+        playByKey(adKey)
+        window.audioMap[adKey].played = true;
+      }
+    }
+
+    setTimeout(function(){
+      doReal()
+    },3000)
+
+}
+
 
 $(function(){
     loadAll()
