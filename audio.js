@@ -46,6 +46,7 @@ var audioMap ={
     d:{file:"社长抽奖出场音乐.mp3",buffer:""},
     e:{file:"社长退场讲话音乐.mp3",buffer:""},
     f:{file:"主持人.mp3",buffer:""},
+    g:{file:"主持人-notitle.mp3",buffer:""},
 
 
     k:{file:"周星驰笑声.mp3",buffer:""},
