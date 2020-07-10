@@ -305,7 +305,6 @@
 "章慧慧.jpg",
 "肖宇.jpg",
 "申炳灿.jpg",
-"辛燦燦.jpg",
 "張世欣.jpg",
 "張爽.jpg",
 "張中原.jpg",
@@ -636,10 +635,17 @@ $(function() {
 	})
 
 
+	window.stopTime = 0;
 
 	$(document).on("keydown",function(e){
 		if(e.keyCode == 32){
 
+			var now = new Date().getTime()
+			if((now - window.stopTime) < 2000){
+				alert("二秒以上の間隔を置いてください")
+				return;
+			}
+			window.stopTime = now;
 
 
 			if(window.flag == true){
