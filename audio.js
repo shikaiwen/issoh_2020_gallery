@@ -45,6 +45,13 @@ var audioMap ={
     c:{file:"获奖音乐.mp3",buffer:""},
     d:{file:"社长抽奖出场音乐.mp3",buffer:""},
     e:{file:"社长退场讲话音乐.mp3",buffer:""},
+    f:{file:"主持人.mp3",buffer:""},
+
+
+    k:{file:"周星驰笑声.mp3",buffer:""},
+    l:{file:"小黄人笑声.mp3",buffer:""},
+    m:{file:"曾小贤笑声.mp3",buffer:""},
+    n:{file:"支付宝到账.mp3",buffer:""},
 
 
 }
@@ -58,18 +65,19 @@ var AudioHolder = {}
 
 function doRandomAudio(){
     var doReal = ()=>{
-      var num = randEx(0,4)
+      var num = randEx(0,3)
       var startKey = "k";
       var adKey = String.fromCharCode(startKey.charCodeAt(0) + num);
-      if(window.audioMap[adKey] && !window.audioMap[adKey].played){
+    //   if(window.audioMap[adKey] && !window.audioMap[adKey].played){
+      if(window.audioMap[adKey] ){
         playByKey(adKey)
-        window.audioMap[adKey].played = true;
+        // window.audioMap[adKey].played = true;
       }
     }
 
     setTimeout(function(){
       doReal()
-    },3000)
+    },1000)
 
 }
 
@@ -147,11 +155,11 @@ function playSoundByName(item) {
       }
     )
 
-    if(values.length == 1){
-        if(["a","b","c","d","e"].includes(values[0])){
-            values[0].source.loop = true;
-        }
-    }
+    // if(values.length == 1){
+    //     if(["a","b","c","d","e"].includes(values[0])){
+    //         values[0].source.loop = true;
+    //     }
+    // }
 
       item.source = source;
       source.onended = function(){
